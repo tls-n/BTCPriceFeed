@@ -8,3 +8,5 @@ The usage is as follows:
 3. The user sends the proof to BTCPriceFeed in an Ethereum transaction.
 4. BTCPriceFeed verifies that the proof is valid and the data source is correct. Afterwards the price is stored.
 5. Using the `getPrice()` function of BTCPriceFeed the user now has secure access to the BTC-USD price at time **T**.
+
+Note, that due to the functionality of the bitcoin.com API, **T** has to refer to the beginning or end of a day.
