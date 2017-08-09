@@ -9,4 +9,6 @@ The usage is as follows:
 4. BTCPriceFeed verifies that the proof is valid and the data source is correct. Afterwards the price is stored.
 5. Using the `getPrice()` function of BTCPriceFeed the user now has secure access to the BTC-USD price at time **T**.
 
-Note, that due to the functionality of the bitcoin.com API, **T** has to refer to the beginning or end of a day.
+### Notes
+- Note, that due to the functionality of the bitcoin.com API, **T** has to refer to the beginning or end of a day.
+- Note, that as bitcoin.com currently does not support TLS-N, the contract checks for the use of the TLS-N.org proxy.
