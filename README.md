@@ -12,3 +12,4 @@ The usage is as follows:
 ### Notes
 - Note, that due to the functionality of the bitcoin.com API, **T** has to refer to the beginning or end of a day.
 - Note, that as bitcoin.com currently does not support TLS-N, the contract checks for the use of the TLS-N.org proxy.
+- This is a prototype, with no correctness guarantees.
