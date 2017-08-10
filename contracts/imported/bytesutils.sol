@@ -1,9 +1,11 @@
 pragma solidity ^0.4.11;
 /*
- * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <arachnid@notdot.net>
+ * @title bytes utility library for Solidity contracts.
+ * @author Anonymized for peer review
  *
- * @dev Functionality in this library is largely implemented using an
+ * @dev Based on https://github.com/Arachnid/solidity-stringutils
+ *      When talking about strings, we mean bytestrings.
+ *      Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
@@ -259,27 +261,8 @@ library bytesutils {
             return rune;
         }
 
-        uint len;
-        uint b;
-        // Load the first byte of the rune into the LSBs of b
-        assembly { b := and(mload(sub(mload(add(self, 32)), 31)), 0xFF) }
-        if (b < 0x80) {
-            len = 1;
-        } else if(b < 0xE0) {
-            len = 2;
-        } else if(b < 0xF0) {
-            len = 3;
-        } else {
-            len = 4;
-        }
-
-        // Check for truncated codepoints
-        if (len > self._len) {
-            rune._len = self._len;
-            self._ptr += self._len;
-            self._len = 0;
-            return rune;
-        }
+		// Byte runes are always of length 1
+        uint len = 1;
 
         self._ptr += len;
         self._len -= len;
@@ -308,40 +291,11 @@ library bytesutils {
         }
 
         uint word;
-        uint len;
         uint div = 2 ** 248;
 
         // Load the rune into the MSBs of b
         assembly { word:= mload(mload(add(self, 32))) }
-        var b = word / div;
-        if (b < 0x80) {
-            ret = b;
-            len = 1;
-        } else if(b < 0xE0) {
-            ret = b & 0x1F;
-            len = 2;
-        } else if(b < 0xF0) {
-            ret = b & 0x0F;
-            len = 3;
-        } else {
-            ret = b & 0x07;
-            len = 4;
-        }
-
-        // Check for truncated codepoints
-        if (len > self._len) {
-            return 0;
-        }
-
-        for (uint i = 1; i < len; i++) {
-            div = div / 256;
-            b = (word / div) & 0xFF;
-            if (b & 0xC0 != 0x80) {
-                // Invalid UTF-8 sequence
-                return 0;
-            }
-            ret = (ret * 64) | (b & 0x3F);
-        }
+        ret = word / div;
 
         return ret;
     }
@@ -700,6 +654,12 @@ library bytesutils {
         return ret;
     }
 
+    /*
+     * @dev Truncates a slice to a specified new length.
+     * @param self The slice to truncate.
+     * @param new_len The new length.
+     * @return The truncated slice.
+     */
     function truncate(slice self, uint new_len) internal returns (slice){
         if(self._len > new_len){
             self._len = new_len;

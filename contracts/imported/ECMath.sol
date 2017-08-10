@@ -1,5 +1,6 @@
 pragma solidity ^0.4.8;
 
+// Library for secp256r1
 library ECMath {
 
 
