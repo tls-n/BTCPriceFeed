@@ -11,7 +11,7 @@ The usage is as follows:
 
 ## Ropsten Deployment
 
-BTCPriceFeed is deployed on Ropsten (the Ethereum test network) at the address [0x8b09153430106169626df6e533590bc7062078cb](https://ropsten.io/address/0x8b09153430106169626df6e533590bc7062078cb). Multiple bitcoin prices, such as the prices for August 1st 2017 (timestamp = 1501545600) are already inserted ([Example Transation](https://ropsten.io/tx/0xec0662cd26ce2a31dcfeee62a54fd59cd7a4849bc4e71ed525e6565e2a094cbb)) and can be queried. More prices can be inserted as described above.
+BTCPriceFeed is deployed on Ropsten (the Ethereum test network) at the address [0x8b09153430106169626df6e533590bc7062078cb](https://ropsten.io/address/0x8b09153430106169626df6e533590bc7062078cb). Multiple bitcoin prices, such as the prices for August 1st 2017 (timestamp = 1501545600) are already inserted ([Example Transaction](https://ropsten.io/tx/0xec0662cd26ce2a31dcfeee62a54fd59cd7a4849bc4e71ed525e6565e2a094cbb)) and can be queried. More prices can be inserted as described above.
 
 ### Notes
 - Note, that due to the functionality of the bitcoin.com API, **T** has to refer to the beginning or end of a day.
