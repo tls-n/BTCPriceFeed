@@ -1,6 +1,5 @@
 pragma solidity ^0.4.1;
 
-import "./imported/VerifyProof.sol";
 import "./imported/JsmnSolLib.sol";
 import "./imported/bytesutils.sol";
 import "./imported/tlsnutils.sol";
@@ -93,7 +92,7 @@ contract BTCPriceFeed {
         // Elliptic curve parameters for the TLS certificate of tls-n.org
         uint256 qx = 0x0de2583dc1b70c4d17936f6ca4d2a07aa2aba06b76a97e60e62af286adc1cc09;
         uint256 qy = 0x68ba8822c94e79903406a002f4bc6a982d1b473f109debb2aa020c66f642144a;
-        require(VerifyProof.verifyProof(proof, qx, qy));
+        require(tlsnutils.verifyProof(proof, qx, qy));
 
         // Check HTTP Request
         bytes memory request = tlsnutils.getHTTPRequestURL(proof);
